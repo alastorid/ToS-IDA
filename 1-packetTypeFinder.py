@@ -9,7 +9,7 @@ import idautils
 import idc
 import os
 
-gePacketTable__PACKET_TABLE__AddPacketSize = 0x9E10E0; # ICBT2 ; Search "%d PacketCommandError MaxiMum -> %d"
+gePacketTable__PACKET_TABLE__AddPacketSize = 0x9736D0; # ICBT2 ; Search "%d PacketCommandError MaxiMum -> %d"
 
 fpy = open ('PacketType.py', 'w');
 packetsId = [];

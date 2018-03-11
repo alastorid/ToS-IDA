@@ -58,11 +58,10 @@ struct lua_State
   void *errorJmp;
 };
 '''.strip();
-
 else:
     # Tip : GetSessionObject is already defined with 5-ToSrenameDebugFunctions.py for discovery
     # Just look for XRef of GetSessionObject and you'll find LuaExtern__declGlobalFunction
-    LuaExtern__declGlobalFunction = 0x0D18570; # ICBT3
+    LuaExtern__declGlobalFunction = 0x00CBBDC0; # ICBT3
 
     def MakeNameForce (address, name):
         x = 2;
@@ -76,7 +75,8 @@ else:
     occ = RfirstB (LuaExtern__declGlobalFunction);
     while occ != BADADDR:
         routineAddress = Dword (occ - 5 - 4);
-        routineName = GetString (Dword (occ - 4));
+        routineName = GetString (Dword (occ - 4));        
         occ = RnextB (LuaExtern__declGlobalFunction, occ);
-        name = MakeNameForce (routineAddress, routineName);
-        SetType (routineAddress, "int __cdecl %s (lua_State * luaState)" % name);
+        if routineAddress != 0x6ff845c7L: #  exception for strcpy(v1, "GetPos"); //H4CK!!
+            name = MakeNameForce (routineAddress, routineName);        
+            SetType (routineAddress, "int __cdecl %s (lua_State * luaState)" % name);

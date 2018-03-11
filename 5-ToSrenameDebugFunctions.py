@@ -7,9 +7,10 @@ import re
 import idautils
 import idc
 import idaapi
+import ida_nalt
 
 s = idautils.Strings(False)
-s.setup(strtypes=Strings.STR_UNICODE | Strings.STR_C)
+s.setup()
 for i, v in enumerate(s):
     if v is None:
         print("Failed to retrieve string index %d" % i)
